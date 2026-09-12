@@ -1,5 +1,7 @@
 const http = require('http');
 const { EventEmitter } = require('events');
+const logger = require('./logger'); 
+
 class AppServer extends EventEmitter {
     constructor() {
         super(); 
@@ -20,7 +22,7 @@ class AppServer extends EventEmitter {
         });
 
         this.on('server:stopped', () => {
-            console.log(`'🛑 Сервер остановлен'`);
+            console.log(`🛑 Сервер остановлен`);
         });
     }
 
@@ -38,6 +40,9 @@ class AppServer extends EventEmitter {
 }
 
 const app = new AppServer();
+
+logger.setupLogger(app);
+
 app.start(3000);
 
 setTimeout(() => {
